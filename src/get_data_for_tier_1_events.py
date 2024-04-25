@@ -15,17 +15,23 @@ for event in events_page.find_all('a', attrs={'class': 'a-reset small-event stan
 ## Gets information and creates dataframe for each event
 df_per_event = []
 for id in event_ids:
-    data = hltv.get_results_by_event(event_id) ## get all matches and outcome data for tournament
+    data = hltv.get_results_by_event(id) ## get all matches and outcome data for tournament
     df = pd.DataFrame(data)
 
     ## This gets further match data for each match
     match_ids = df['match-id']
     match_stats = []
+    past_player_stats = []
     for match_id in match_ids:
-        match_stats.append(hltv.get_match_stats(match_id))
+        match_stats.append(hltv.get_match_result_stats(match_id))
+        past_player_stats.append(hltv.get_past_player_stats_for_match(match_id))
 
     df_match_stats = pd.DataFrame(match_stats)
+    df_match_stats = df_match_stats[['match-id', 'match_type', 'match_stage']]
     df = pd.merge(df, df_match_stats, on='match-id', how = 'inner') ## combine dataframes
+
+    df_past_player_stats = pd.DataFrame(past_player_stats)
+    df = pd.merge(df, df_past_player_stats, on='match-id', how = 'inner') ## combine dataframes
     
     event_team_rankings = hltv.get_event_team_rankings(event_id) ## gets team rankings at time of the event
     team_rankings_df = pd.DataFrame(list(event_team_rankings.items()), columns=['Team', 'Ranking'])
@@ -41,3 +47,5 @@ for id in event_ids:
 df = pd.concat(df_per_event) ## Combines all dataframes together
 
 df.to_csv('./data/raw/tier_1_data.csv')
+
+print('Data Collected!')
