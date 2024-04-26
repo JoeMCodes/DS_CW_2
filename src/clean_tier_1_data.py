@@ -9,6 +9,10 @@ df_test = pd.read_csv('data/raw/tier_1_data_test.csv', index_col=False)
 df_train = df_train.drop(columns=["url", "event", "match-id", "date", "team1-id", "team2-id"])
 df_test = df_test.drop(columns=["url", "event", "match-id", "date", "team1-id", "team2-id"])
 
+## drop NA values
+df_train = df_train.dropna()
+df_test = df_test.dropna()
+
 ## Helper Functions To process string data
 def convert_match_stage(ms_str):
     '''
