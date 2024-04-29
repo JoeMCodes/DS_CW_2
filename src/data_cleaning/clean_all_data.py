@@ -2,7 +2,11 @@ import pandas as pd
 import numpy as np
 
 ## Load dataframes 
-df_all = pd.read_csv('data/raw/all_data_train.csv', index_col=False)
+df_all_list = []
+for i in range(10):
+    df_all_list.append(pd.read_csv(f'data/raw/all_data_train_{i}.csv', index_col=False))
+
+df_all = pd.concat(df_all_list) ## Combine to big df
 
 ## Drop unused columns
 df_all = df_all.drop(columns=["url", "event", "match-id", "date", "team1-id", "team2-id"])
