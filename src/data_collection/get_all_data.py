@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 event_ids = []
 
-for i in range(10): ## Gets 500 results 
+for i in range(0, 10): ## Gets 500 results --- ## Change start value to restart after broken runs
     event_ids = []
     ## gets list of recent (last 12 months) event id's for top tier tournaments (Defined as International LAN's with prize pool greater or equal to 100000$)
     events_page = hltv.get_parsed_page(f'https://www.hltv.org/events/archive?offset={50*i}&startDate=2023-03-25&endDate=2024-03-25&prizeMin=0&prizeMax=2000000')

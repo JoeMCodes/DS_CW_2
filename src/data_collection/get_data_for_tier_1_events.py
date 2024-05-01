@@ -27,7 +27,7 @@ for id in event_ids[0:2]: ## the two latest tournaments wil be used a test datas
         past_player_stats.append(hltv.get_past_player_stats_for_match(match_id))
 
     df_match_stats = pd.DataFrame(match_stats)
-    df_match_stats = df_match_stats[['match-id', 'match_type', 'match_stage']]
+    df_match_stats = df_match_stats[['match-id', 'match_type', 'match_stage']] ## Get relevant information from match stats
     df = pd.merge(df, df_match_stats, on='match-id', how = 'inner') ## combine dataframes
 
     df_past_player_stats = pd.DataFrame(past_player_stats)
@@ -51,6 +51,7 @@ df.to_csv('./data/raw/tier_1_data_test.csv', index=False)
 print('Test Data Collected!')
 
 
+## Repeat the above for the train data
 
 ## Gets information and creates dataframe for each event
 df_per_event = []
