@@ -1,8 +1,17 @@
 # Counter Strike 2 Predictor 
 
 To use the predictor, simply run in the command:
+
 * python predict_match.py
-Then, you will see a pop-up window in which you can enter the match-id for the match you wish to predict, and then it will compute the probability of team 1 winning. Please note that this can sometimes take minutes to compute (from scraping the match stats), it may also fail to compute due to missing information about the match or failure to parse the web page. You may also need to download the required packages. Below shows how you can create a virtual environment and install the requirements.
+
+Then, you will see a pop-up window in which you can enter the match-id for the match you wish to predict, and then it will compute the probability of team 1 winning.
+To find the match-id for a match you wish to predict, simply go to https://www.hltv.org/matches , click on the match of interest, and inspect the url which should look something like:
+
+https://www.hltv.org/matches/2371531/flyquest-vs-heroic-esl-pro-league-season-19
+
+The numbers after 'matches/' is the match-id, in this case (2371531).
+
+Please note that this can sometimes take minutes to compute (from scraping the match stats), it may also fail to compute due to missing information about the match or failure to parse the web page. You may also need to download the required packages. Below shows how you can create a virtual environment and install the requirements.
 
 # Creating a venv
 
@@ -36,7 +45,9 @@ We should also note that players 0 to 4 are Team 1 and 5 to 9 are Team 2 and the
 The data cleaning functions can just be run as normal and takes the data from data/raw and creates tidy and usable dataframes stored as csv files in data/clean. The model selection and training have been done in notebooks, which can be found in src/model_notebooks, to allow users to easily tinker and experiment with different model designs. These notebooks are self running, so one could click run all to recreate results (results for neural networks will be slightly different due to randomness in training using keras api). The preferred models are saved in outputs/models to be used later for prediction, the neural network model is quite large ~0.8MB and so requires Git LFS to upload to GitHub. 
 
 To test if the 'predict_match_outcome.py' function is working properly you can use the test script by running it as module as follows:
+
 * python -m tests.predict_match_test
+
 But please note that if you have changed the models and saved them, then the probability you compute for the matches will be different, resulting in a failed test. You can either update the probability or choose not to run that test. The predict function can sometimes fail, as mentioned above, when certain information about a team is missing. Examples of when this might happen are when a team is using a 'stand-in', and so is missing information about that player on the team stats page, or when the team is new and so there is no current team ranking for them.
 
 # hltv-api
