@@ -1,4 +1,6 @@
 # Counter Strike 2 Predictor 
+BUG: Please download https://github.com/JoeMCodes/hltv-api and copy the folder into the main directory of this package. Then rename this folder to 'hltv_api' and the package will work.
+
 
 To use the predictor, simply run in the command:
 
